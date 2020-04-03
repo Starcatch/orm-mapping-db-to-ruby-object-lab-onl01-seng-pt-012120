@@ -74,6 +74,8 @@ def self.first_x_students_in_grade_10(num)
   end
   
   
+  
+  
   def save
     sql = <<-SQL
       INSERT INTO students (name, grade) 
