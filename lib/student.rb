@@ -25,8 +25,7 @@ class Student
   def self.find_by_name(name)
     # find the student in the database given a name
     # return a new instance of the Student class
-    
-sql = <<-SQL
+    sql = <<-SQL
       SELECT * FROM students
       WHERE name = ?
       LIMIT 1
@@ -36,8 +35,8 @@ sql = <<-SQL
       self.new_from_db(row)
     end.first
   end
-  
-  def self.all_students_in_grade_9
+
+  def self.count_all_students_in_grade_9
     sql = <<-SQL
       SELECT * FROM students
       WHERE grade = 9
@@ -46,10 +45,8 @@ sql = <<-SQL
       DB[:conn].execute(sql).map do |row|
         self.new_from_db(row)
       end
-  end 
-  
-  
-  
+  end
+
   def self.students_below_12th_grade
     sql = <<-SQL
       SELECT * FROM students
@@ -60,8 +57,8 @@ sql = <<-SQL
         self.new_from_db(row)
       end
   end
-  
-def self.first_x_students_in_grade_10(num)
+
+  def self.first_x_students_in_grade_10(num)
     sql = <<-SQL
       SELECT * FROM students
       WHERE grade = 10
@@ -72,7 +69,7 @@ def self.first_x_students_in_grade_10(num)
         self.new_from_db(row)
       end
   end
-  
+
   def self.first_student_in_grade_10
     sql = <<-SQL
       SELECT * FROM students
@@ -85,7 +82,7 @@ def self.first_x_students_in_grade_10(num)
       end.first
   end
 
-def self.all_students_in_grade_x(grade)
+  def self.all_students_in_grade_x(grade)
     sql = <<-SQL
       SELECT * FROM students
       WHERE grade = ?
@@ -95,19 +92,16 @@ def self.all_students_in_grade_x(grade)
         self.new_from_db(row)
       end
   end
-  
-  
-  
-  
+
   def save
     sql = <<-SQL
-      INSERT INTO students (name, grade) 
+      INSERT INTO students (name, grade)
       VALUES (?, ?)
     SQL
 
     DB[:conn].execute(sql, self.name, self.grade)
   end
-  
+
   def self.create_table
     sql = <<-SQL
     CREATE TABLE IF NOT EXISTS students (
